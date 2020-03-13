@@ -9,6 +9,41 @@
 import UIKit
 import Moya
 
-class WebService {
+class WebService: NSObject {
+    
+    var newsService = MoyaProvider<NewsService>()
+    
     static let shared = WebService()
+    
+    func fetchEvery(completion: @escaping([Articles]?, Error?) -> Void) {
+        newsService.request(.getEvery) { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let every = try JSONDecoder().decode(Every.self, from: response.data).articles
+                    completion(every, nil)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func fetchNews(country: String, completion: @escaping([Articles]?, Error?) -> Void) {
+        newsService.request(.getNews(country: country)) { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let news = try JSONDecoder().decode(Welcome.self, from: response.data).articles
+                    completion(news,nil)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            case .failure(let error):
+                print("Error blya \(error.localizedDescription)")
+            }
+        }
+    }
 }
