@@ -31,8 +31,8 @@ class WebService: NSObject {
         }
     }
     
-    func fetchNews(country: String, completion: @escaping([Articles]?, Error?) -> Void) {
-        newsService.request(.getNews(country: country)) { (result) in
+    func fetchNews(country: String,category: String, completion: @escaping([Articles]?, Error?) -> Void) {
+        newsService.request(.getNews(country: country, category: category)) { (result) in
             switch result {
             case .success(let response):
                 do {

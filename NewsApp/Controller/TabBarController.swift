@@ -20,7 +20,7 @@ class TabBarController: UITabBarController {
     // MARK: - Helper function
     
     fileprivate func configureViewControllers() {
-        let topHideLines = UINavigationController(rootViewController: MainPageNewsController())
+        let topHideLines = UINavigationController(rootViewController: MainController())
         let everything = UINavigationController(rootViewController: EverythingController())
         
         topHideLines.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "home"), tag: 0)

@@ -33,7 +33,7 @@ class EverythingController: UIViewController {
         layout.scrollDirection = .vertical
         collectionView.backgroundColor = .clear
         collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         collectionView.delegate = self
         collectionView.dataSource = self
         return collectionView
@@ -156,5 +156,19 @@ extension EverythingController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let every = everyArray[indexPath.item]
+        UIView.animate(withDuration: 0.5) {
+            DetailNewsViewController.shared.titleLabel.text = every.title
+            DetailNewsViewController.shared.publishedAt.text = every.publishedAt
+            DetailNewsViewController.shared.textView.text = every.content
+            DetailNewsViewController.shared.linkLabel.text = every.url
+            if let imageUrl = every.urlToImage {
+                DetailNewsViewController.shared.imageView.sd_setImage(with: URL(string: imageUrl), placeholderImage: UIImage(named: "placeholder"))
+            }
+            self.navigationController?.pushViewController(DetailNewsViewController.shared, animated: true)
+        }
     }
 }

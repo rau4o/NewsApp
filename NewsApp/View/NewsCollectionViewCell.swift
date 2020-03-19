@@ -12,6 +12,13 @@ class NewsCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
+    var cardView: UIView = {
+        let view = UIView()
+        view.addShadow()
+        view.backgroundColor = .white
+        return view
+    }()
+    
     var publisherLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 8)
@@ -28,7 +35,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
     
     var titleLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .orange
+        label.backgroundColor = .white
         label.textColor = .black
         label.textAlignment = .left
         label.numberOfLines = 2
@@ -41,7 +48,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .black
-        label.backgroundColor = .red
+        label.backgroundColor = .white
         label.numberOfLines = 10
         return label
     }()
@@ -49,7 +56,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
     var imageUrl: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleToFill
-        image.backgroundColor = .orange
+        image.backgroundColor = .white
         return image
     }()
     
@@ -63,17 +70,20 @@ class NewsCollectionViewCell: UICollectionViewCell {
     // MARK: - Helper function
     
     private func configureUI() {
-        addSubview(imageUrl)
-        addSubview(titleLabel)
-        addSubview(descriptionLabel)
-        addSubview(authorLabel)
-        addSubview(publisherLabel)
+        addSubview(cardView)
+        cardView.addSubview(imageUrl)
+        cardView.addSubview(titleLabel)
+        cardView.addSubview(descriptionLabel)
+        cardView.addSubview(authorLabel)
+        cardView.addSubview(publisherLabel)
         
-        imageUrl.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, paddingTop: 20, paddingLeft: 20, paddingBottom: 20, width: 150, height: 0)
+        cardView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
+        
+        imageUrl.anchor(top: cardView.topAnchor, left: cardView.leftAnchor, bottom: cardView.bottomAnchor, paddingTop: 20, paddingLeft: 20, paddingBottom: 20, width: 150, height: 0)
 
-        titleLabel.anchor(top: imageUrl.topAnchor, left: imageUrl.rightAnchor, right: rightAnchor,paddingTop: 0, paddingLeft: 10, paddingRight: 10,height: 40)
+        titleLabel.anchor(top: imageUrl.topAnchor, left: imageUrl.rightAnchor, right: cardView.rightAnchor,paddingTop: 0, paddingLeft: 10, paddingRight: 10,height: 40)
         
-        descriptionLabel.anchor(top: titleLabel.bottomAnchor, left: imageUrl.rightAnchor, bottom: imageUrl.bottomAnchor,right: rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0,paddingRight: 10, height: 70)
+        descriptionLabel.anchor(top: titleLabel.bottomAnchor, left: imageUrl.rightAnchor, bottom: imageUrl.bottomAnchor,right: cardView.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0,paddingRight: 10, height: 70)
         
         authorLabel.anchor(top: imageUrl.bottomAnchor, left: imageUrl.leftAnchor, right: imageUrl.rightAnchor, paddingTop: 5, paddingLeft: 0, paddingRight: 0, height: 10)
         

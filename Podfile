@@ -8,6 +8,7 @@ target 'NewsApp' do
   pod "Moya"
   pod "IQKeyboardManager" 
   pod 'SDWebImage', '~> 5.0'
+  pod 'BmoViewPager', '~> 4.2.2'
   # Pods for NewsApp
 
 end
